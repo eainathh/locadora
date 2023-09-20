@@ -18,59 +18,54 @@
         <!-- Formulário de Cadastro/Edição de Filmes -->
         <div class="col-md-4">
             <h3>Cadastrar/Editar Filme</h3>
-            <form>
+            <form action="{{route('filme.update', ['id'=>$filme->id])}}" method="post">
+                @csrf
                 <div class="mb-3">
                     <label for="capa" class="form-label">Capa do Filme (URL):</label>
-                    <input type="url" class="form-control" id="capa" placeholder="URL da capa do filme">
+                    <input type="url" class="form-control" value="{{$filme->capa}}" name="capa" id="capa" placeholder="URL da capa do filme">
                 </div>
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Título do filme">
+                    <input type="text" class="form-control" value="{{$filme->titulo}}" name="titulo" id="titulo" placeholder="Título do filme">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3"> 
+                    <!-- PARA TRAZER O VALUE DA SELECAO -->
                     <label for="genero" class="form-label">Gênero:</label>
-                    <select name="" id="" class="form-select">
+                    <select id="" name="id_genero" class="form-select">
                         <option value="">Selecione</option>
-                        <option value="1">Ação</option>
+                        @foreach($genero as $k => $value) 
+                        <option value="{{$value->id}}" @if($filme->id_genero == $value->id) selected @endif >{{$value->tipo}}</option>
+                        @endforeach
                     </select>
                    
                 </div>
                 <div class="mb-3">
                     <label for="resumo" class="form-label">Resumo:</label>
-                    <textarea class="form-control" id="resumo" rows="3" placeholder="Resumo do filme"></textarea>
+                    <textarea class="form-control" id="resumo" name="resumo" rows="3" placeholder="Resumo do filme">{{$filme->resumo}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
-        </div>
+        </div>  
         <!-- Lista de Filmes em Tabela -->
         <div class="col-md-8">
-            <h3>Lista de Filmes</h3>
+            <h3>Editando filmes</h3>
             <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Capa</th>
-                        <th scope="col">Título</th>
-                        <th scope="col">Gênero</th>
-                        <th scope="col">Resumo</th>
-                        <th scope="col">Editar</th>
-                    </tr>
-                </thead>
-                <tbody id="listaFilmes">
-                    <tr>
-                        <td><img src="http://lorempixel.com.br/80/100" alt="Filme 1"></td>
-                        <td>Filme 1</td>
-                        <td>Ação</td>
-                        <td>Um filme de ação emocionante.</td>
-                        <td><a href="" class="btn btn-primary">Editar</a></td>
-                    </tr>
-                    <tr>
-                        <td><img src="http://lorempixel.com.br/80/100" alt="Filme 2"></td>
-                        <td>Filme 2</td>
-                        <td>Comédia</td>
-                        <td>Uma comédia hilária que vai te fazer rir.</td>
-                        <td><a href="" class="btn btn-primary">Editar</a></td>
-                    </tr>
-                </tbody>
+                <form action="{{route('filme.update', ['id'=>$filme->id])}}" method="post">
+                    <thead>
+                        <tr>
+                            <th scope="col">Capa</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Gênero</th>
+                            <th scope="col">Resumo</th>
+                            <th scope="col">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaFilmes">
+                            
+                            <td><a href="" class="btn btn-primary">Editar</a></td>
+                        </tr>
+                    </tbody>
+                </form>
             </table>
         </div>
     </div>

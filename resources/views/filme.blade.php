@@ -1,43 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Filmes</title>
-    <!-- Inclua os arquivos do Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
+@extends('layouts.app')
+
+@section('content')
 <body>
 <div class="container mt-5">
     <div class="row">
-        <div class= col-6>
-            <a href="{{route('home')}}" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Home</a>
-        </div>
 <div class="container mt-5">
     <div class="row">
         <!-- Formulário de Cadastro/Edição de Filmes -->
         <div class="col-md-4">
             <h3>Cadastrar/Editar Filme</h3>
-            <form>
+            <form action="{{route('store.filme')}}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label for="capa" class="form-label">Capa do Filme (URL):</label>
-                    <input type="url" class="form-control" id="capa" placeholder="URL da capa do filme">
+                    <input type="url" class="form-control" name="capa" id="capa" placeholder="URL da capa do filme">
                 </div>
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Título do filme">
+                    <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Título do filme">
                 </div>
                 <div class="mb-3">
                     <label for="genero" class="form-label">Gênero:</label>
-                    <select name="" id="" class="form-select">
+                    <select id="" name="id_genero" class="form-select">
                         <option value="">Selecione</option>
-                        <option value="1">Ação</option>
+                        @foreach($genero as $k => $item)
+                        <option value="{{$item->id}}">{{$item->tipo}}</option>
+                        @endforeach
                     </select>
                    
                 </div>
                 <div class="mb-3">
                     <label for="resumo" class="form-label">Resumo:</label>
-                    <textarea class="form-control" id="resumo" rows="3" placeholder="Resumo do filme"></textarea>
+                    <textarea class="form-control" id="resumo" name="resumo" rows="3" placeholder="Resumo do filme"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
@@ -56,20 +50,17 @@
                     </tr>
                 </thead>
                 <tbody id="listaFilmes">
+                    <!-- LISTANDO TODOS OS FILMES  -->
+                    @foreach($filmes as $k => $item)
                     <tr>
-                        <td><img src="http://lorempixel.com.br/80/100" alt="Filme 1"></td>
-                        <td>Filme 1</td>
-                        <td>Ação</td>
-                        <td>Um filme de ação emocionante.</td>
-                        <td><a href="" class="btn btn-primary">Editar</a></td>
+                        <td><img src="{{$item->capa}}" alt="Filme 1" style="width:100px"></td>
+                        <td>{{$item->titulo}}</td>
+                        <td>{{$item->generoFilme->tipo}}</td> <!-- ACESSANDO A FUNCAO GENERO FILME PARA USAR O RELACIONAMENTO -->
+                        <td>{{$item->resumo}}</td>
+                        <td><a href="{{route('filme.edit',['id'=>$item-> id])}}" class="btn btn-primary">Editar</a></td>
                     </tr>
-                    <tr>
-                        <td><img src="http://lorempixel.com.br/80/100" alt="Filme 2"></td>
-                        <td>Filme 2</td>
-                        <td>Comédia</td>
-                        <td>Uma comédia hilária que vai te fazer rir.</td>
-                        <td><a href="" class="btn btn-primary">Editar</a></td>
-                    </tr>
+                    @endforeach
+                   
                 </tbody>
             </table>
         </div>
@@ -82,3 +73,4 @@
 
 </body>
 </html>
+@endsection

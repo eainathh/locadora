@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilmeController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,12 +17,19 @@ use App\Http\Controllers\HomeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware('auth')->prefix('admin/')->name('admin.')->group(function () {
+});
 
-Route::get('/', [HomeController::class,'home'])->name('home');
 Route::get('/genero', [GeneroController::class, 'genero'])->name('genero');
+Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/filme', [FilmeController::class, 'filme'])->name('filme');
 Route::post('/store', [GeneroController::class, 'store'])->name('store');
+Route::post('/storefilme', [FilmeController::class, 'store'])->name('store.filme');
 Route::get('/genero/edit/{id}', [GeneroController::class, 'edit'])->name('genero.edit');
 Route::post('/genero/update/{id}', [GeneroController::class, 'update'])->name('genero.update');
-Route::get('/filme/edit/{id}', [FilmeController::class, 'edit'])->name('filme.edit');
-Route::post('/filme/update/{id}', [FilmeController::class, 'update'])->name('filme.update');
+Route::get('/filme/edit/{id}', [FilmeController::class, 'editFilme'])->name('filme.edit');
+Route::post('/filme/update/{id}', [FilmeController::class, 'updateFilme'])->name('filme.update');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

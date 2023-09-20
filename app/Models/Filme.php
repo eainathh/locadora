@@ -15,4 +15,8 @@ class Filme extends Model
         'id_genero',
         'resumo'
     ];
+    // ESSA FUNCAO RELACIONA O ID DO GENERO COM O FILME - 
+    function generoFilme(){
+        return $this->hasOne(Genero::class,'id','id_genero');
+    }
 }
