@@ -62,7 +62,6 @@
                     </thead>
                     <tbody id="listaFilmes">
                             
-                            <td><a href="" class="btn btn-primary">Editar</a></td>
                         </tr>
                     </tbody>
                 </form>

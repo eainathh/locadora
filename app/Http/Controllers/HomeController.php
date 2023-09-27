@@ -4,20 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 namespace App\Http\Controllers; 
+use App\Models\Filme;
+use App\Models\Genero;
 
 use Auth; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
-class maincontroller extends Controller 
-{ 
-    public function home(Request $request)
-    { 
-        if(FacadesAuth::Attempt($request->only('email','password'))) { 
-            return redirect('/'); 
-        }
-    }
-}
+
 
 class HomeController extends Controller
 {
@@ -36,8 +30,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
+    public function index(Request $request){
+       
+        $genero = Genero::all();
+        $filmes = Filme::all();
+        return view('home', compact('genero', 'filmes'));
     }
 }

@@ -25,7 +25,7 @@ class FilmeController extends Controller
             'resumo'=> $filme['resumo']
         ]);
 
-        return redirect()->route('filme');
+        return redirect()->route('filme');  
     }
 
     public function editFilme($id){
@@ -40,6 +40,13 @@ class FilmeController extends Controller
 
         Filme::findOrFail($request-> id)->update($request->all());
         return redirect()->route('filme')->with('msg','Evento editado com sucesso');
+    }
+
+    public function destroy($id) 
+    {
+
+        Filme::where('id',$id)->delete();
+        return redirect()->route('filme')->with('msg','Evento excluído com sucesso');
     }
 
 }
