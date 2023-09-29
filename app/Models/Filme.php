@@ -9,11 +9,13 @@ class Filme extends Model
 {
     use HasFactory;
 
+    protected $table = "filmes";
     protected $fillable = [
         'capa',
         'titulo',
         'id_genero',
-        'resumo'
+        'resumo',
+        'status'
     ];
     // ESSA FUNCAO RELACIONA O ID DO GENERO COM O FILME - 
     function generoFilme(){

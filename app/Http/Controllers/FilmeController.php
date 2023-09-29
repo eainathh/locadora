@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Filme;
 use App\Models\Genero;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class FilmeController extends Controller
 {
@@ -22,7 +23,8 @@ class FilmeController extends Controller
             'capa'=> $filme['capa'],
             'titulo'=> $filme['titulo'],
             'id_genero'=> $filme['id_genero'],
-            'resumo'=> $filme['resumo']
+            'resumo'=> $filme['resumo'],
+            'status'=> $filme['status']
         ]);
 
         return redirect()->route('filme');  
@@ -32,8 +34,9 @@ class FilmeController extends Controller
         $filme = Filme::findOrFail($id);
         $lista = Filme::all();
         $genero = Genero::all();
+        $filmes = Filme::all();
 
-        return view('filmes-edit', compact('filme', 'lista', 'genero'));
+        return view('filmes-edit', compact('filme', 'lista', 'genero', 'filmes'));
     }
 
     public function updateFilme(Request $request){
@@ -47,6 +50,14 @@ class FilmeController extends Controller
 
         Filme::where('id',$id)->delete();
         return redirect()->route('filme')->with('msg','Evento excluído com sucesso');
+    }
+
+    // Função para retornar os filmes de um genero especifico    
+    public function buscarPorGenero(Request $request){
+        $data = $request->except('_token');
+        $filmes = Filme::where('id_genero',$data['generos'])->get();
+        $genero = Genero::all();
+        return view('buscarPorGenero', compact('filmes','genero'));
     }
 
 }

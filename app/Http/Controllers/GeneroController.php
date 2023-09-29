@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Filme;
 use App\Models\Genero;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class GeneroController extends Controller
             
         ]);
         
-        return redirect()->route('genero');
+        return redirect()->route('genero')->with('msg', 'Gênero criado com sucesso');
     }
 
     public function edit($id){
@@ -38,7 +39,18 @@ class GeneroController extends Controller
 
         
         Genero::findOrFail($request-> id)->update($request->all());
-        return redirect()->route('genero')->with('msg', 'Evento Editado com sucesso"');
+        return redirect()->route('genero')->with('msg', 'Gênero editado com sucesso');
 
+    }
+
+    public function destroyg($id) 
+    {
+        $filmes = Filme::where('id_genero',$id)->count();
+        if($filmes == 0) {
+            Genero::where('id',$id)->delete(); 
+        } else{
+            return redirect()->route('genero')->with('msg','Existem filmes nessa categoria');    
+        }
+         return redirect()->route('genero')->with('msg','Gênero excluído com sucesso');
     }
 }

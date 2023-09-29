@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 */
 Route::middleware('auth')->prefix('admin/')->name('admin.')->group(function () {
 });
-
+Route::get('/filtrar-por-genero',[FilmeController::class,'buscarPorGenero'])->name('buscarPorGenero');
 Route::get('/genero', [GeneroController::class, 'genero'])->name('genero');
 Route::get('/filme', [FilmeController::class, 'filme'])->name('filme');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -30,6 +30,7 @@ Route::post('/genero/update/{id}', [GeneroController::class, 'update'])->name('g
 Route::get('/filme/edit/{id}', [FilmeController::class, 'editFilme'])->name('filme.edit');
 Route::post('/filme/update/{id}', [FilmeController::class, 'updateFilme'])->name('filme.update');
 Route::delete('/filme/{id}', [FilmeController::class, 'destroy'])->name('destroy');
+Route::delete('/genero/{id}', [GeneroController::class, 'destroyg'])->name('destroyg');
 
 Auth::routes();
 
