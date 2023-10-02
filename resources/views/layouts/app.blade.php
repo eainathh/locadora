@@ -34,6 +34,9 @@
       <li class="nav-item">
         <a class="nav-link text-dark" href="{{route('genero')}}"><strong> Gêneros </strong></a>
       </li>
+      <li class="nav-item">
+      <a class="nav-link text-light" href="{{route('login')}}"><strong> Login </strong></a>
+      </li>
     </ul>
   </div>
 </nav>

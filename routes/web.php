@@ -32,6 +32,7 @@ Route::post('/filme/update/{id}', [FilmeController::class, 'updateFilme'])->name
 Route::delete('/filme/{id}', [FilmeController::class, 'destroy'])->name('destroy');
 Route::delete('/genero/{id}', [GeneroController::class, 'destroyg'])->name('destroyg');
 
+
 Auth::routes();
 
 
