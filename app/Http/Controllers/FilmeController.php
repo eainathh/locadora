@@ -16,6 +16,7 @@ class FilmeController extends Controller
         return view('filme', compact('genero', 'filmes'));
     }
 
+    //CRIAR O FILME
     public function store(Request $request){
         $filme=$request->except('_token');
         
@@ -30,6 +31,7 @@ class FilmeController extends Controller
         return redirect()->route('filme');  
     }
 
+    //EDITAR O FILME
     public function editFilme($id){
         $filme = Filme::findOrFail($id);
         $lista = Filme::all();
@@ -39,12 +41,14 @@ class FilmeController extends Controller
         return view('filmes-edit', compact('filme', 'lista', 'genero', 'filmes'));
     }
 
+    // ATUALIZAR O FILME
     public function updateFilme(Request $request){
 
         Filme::findOrFail($request-> id)->update($request->all());
         return redirect()->route('filme')->with('msg','Evento editado com sucesso');
     }
 
+    // EXCLUIR O FILME
     public function destroy($id) 
     {
 

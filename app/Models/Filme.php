@@ -17,6 +17,19 @@ class Filme extends Model
         'resumo',
         'status'
     ];
+    protected $enumStatus= ['disponivel', 'alugado'];
+
+    public function getStatusFilme($value)
+    {
+        return $this->enumStatus[$value];
+    }
+
+    public function locar(){
+        return $this->hasMany(Locacoes::class,'id_filme', 'id');
+    }
+
+
+
     // ESSA FUNCAO RELACIONA O ID DO GENERO COM O FILME - 
     function generoFilme(){
         return $this->hasOne(Genero::class,'id','id_genero');

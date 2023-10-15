@@ -19,7 +19,6 @@
                 @endforeach
             <!-- Adicione mais opções de gênero aqui -->
             </select>   
-            <hr>
             <button type="submit" class="btn btn-primary">
                 Pesquisar
             </button>  
@@ -39,6 +38,13 @@
                     <p class="card-text"><strong>Gênero: </strong>{{$item->generoFilme->tipo}}</p>
                     <p class="card-text"><strong>Status: </strong>{{$item->status}}</p>
                 </div>
+                @auth
+                    <button type="submit" class="btn btn-primary ">
+                    Alugar
+                    </button>  
+                    <input type="hidden" nome="id_filme" value="$id_filme">
+                @endauth
+                </form>
             </div>
         </div>
         @endforeach

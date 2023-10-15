@@ -36,4 +36,6 @@ class HomeController extends Controller
         $filmes = Filme::all();
         return view('home', compact('genero', 'filmes'));
     }
+
+    
 }

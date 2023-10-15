@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<div class="container mt-5">
 <form action="{{route('buscarPorGenero')}}" method="GET">
         <div class="row col-3">
             <h3>Filtrar por Gênero</h3>
@@ -24,7 +24,7 @@
 
 <div class="row">
 @foreach($filmes as $k => $item)
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4"> 
             <div class="card">
                 <img src="{{$item->capa}}" class="card-img-top" alt="Filme 1">
                 <div class="card-body">
@@ -32,10 +32,19 @@
                     <p class="card-text">{{$item->resumo}}.</p>
                     <p class="card-text"><strong>Gênero:</strong>{{$item->generoFilme->tipo}}</p>
                     <p class="card-text"><strong>Status: </strong>{{$item->status}}</p>
+                    
+                @auth
+                    <button type="submit" class="btn btn-primary ">
+                    Alugar
+                    </button>  
+                    <input type="hidden" nome="id_filme" value="$id_filme">
+                @endauth
+                </form>
                 </div>
             </div>
         </div>
 @endforeach
+</div>
 
 @endsection
 </div>

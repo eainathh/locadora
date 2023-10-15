@@ -57,10 +57,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-                                <form action="{{ route('register') }}" method="get">
-                                    <button type="submit" class="btn btn primary">
-                                    {{route('register')}}
-                                    </button>
                                 </form>
 
                                 @if (Route::has('password.request'))
