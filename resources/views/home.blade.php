@@ -29,27 +29,51 @@
         <!-- Card do Filme 1 -->
 
         @foreach($filmes as $k => $item)
+        
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="{{$item->capa}}" class="card-img-top" alt="Filme 1">
+                <img src="{{$item->capa}}" class="card-img-top" alt="filme">
                 <div class="card-body">
                     <h5 class="card-title">{{$item->titulo}}</h5>
                     <p class="card-text">{{$item->resumo}}.</p>
                     <p class="card-text"><strong>Gênero: </strong>{{$item->generoFilme->tipo}}</p>
-                    <p class="card-text"><strong>Status: </strong>{{$item->status}}</p>
+                    <p class="card-text"><strong>Status: </strong>
+                    
+                    {{$item->status}}
+                
+                </p>
                 </div>
                 @auth
-                    <button type="submit" class="btn btn-primary ">
-                    Alugar
-                    </button>  
-                    <input type="hidden" nome="id_filme" value="$id_filme">
+
+                    @if($item->status == 'disponivel')            
+                    <form action="{{route('locarfilme',[$item->id])}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id_filme" value="{{$item->id}}">
+                        <button type="submit">Alugar</button>
+                    </form>
+                    
+                    @else
+                    @if($item->locar
+                        ->where('id_user', Auth::user()->id)
+                        ->whereNull('data_entrega')
+                        ->count() > 0)
+
+                    <form action="" method="">
+                        @csrf
+                        <input type="hidden" name="id" value="{{}}">
+                        <button type="submit">Devolver</button>
+
+                    </form>
+                    @endif
+
+                    @endif
                 @endauth
-                </form>
+                
             </div>
         </div>
         @endforeach
         
-        <!-- Adicione mais cards de filmes aqui -->
+        
     </div>
 </div>
 

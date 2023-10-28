@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Locacoes extends Model
 {
     use HasFactory;
-    protected $dates = ['data_locacao','data_fim'];
-    protected $fillable =['id_user','id_filme','status','data_locacao','data_fim'];
+    protected $table = 'locacoes';
+    protected $dates = ['data_retirada','data_entrega'];
+    protected $fillable =['id_user','id_filme','status','data_retirada','data_entrega'];
 
     protected $enumStatus= ['disponivel', 'alugado'];
 
-    public function getStatusFilme($value)
+   /*  public function getStatusFilme($value)
     {
         return $this->enumStatus[$value];
     }
@@ -21,7 +22,7 @@ class Locacoes extends Model
     public function user(){
         return $this->belongsTo((User::class));
     }
-    
+    */
 
     // LOCACAO
     public function filme(){
@@ -33,4 +34,8 @@ class Locacoes extends Model
     }
     public $timestamps = false;
 
+    //DEVOLUCAO
+
+
+    
 }

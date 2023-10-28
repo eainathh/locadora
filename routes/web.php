@@ -37,6 +37,8 @@ Route::delete('/genero/{id}', [GeneroController::class, 'destroyg'])->name('dest
 
 Route::get('/meus-filmes', [LocacoesController::class, 'meusFilmes'])->name('meus-filmes');
 Route::post('/locar/{id}', [LocacoesController::class,'locarfilme'])->name('locarfilme');
+Route::post('/devolver/{id}', [LocacaoController::class, 'devolver'])->name('devolver');
+
 
 
 

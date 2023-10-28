@@ -40,7 +40,9 @@
                 
                 <div class="mb-3">
                     <label for="resumo" class="form-label">Resumo:</label>
-                    <textarea class="form-control" id="resumo" name="resumo" rows="3" placeholder="Resumo do filme"></textarea>
+                    <textarea class="form-control" id="resumo" name="resumo" rows="3" placeholder="Resumo do filme">
+                    {{$filme->resumo}}
+                    </textarea>
                 </div>
 
 

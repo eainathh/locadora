@@ -10,23 +10,40 @@ use Illuminate\Http\Request;
 
 class LocacoesController extends Controller
 {
-    public function locarFilme (Filme $filme){
-       if (auth()->check()){
-       //$filme = Filme::find($id);
+    public function locarFilme (Request $request,$id){
+
+        $data = $request->all();
+
+       $filme = Filme::find($id);
        $filme->status = 'alugado';
        $filme->save();
 
-       $data_retirada = Carbon::now();
+       $data_retirada = Carbon::now();  
+       $data_entrega = Carbon::now();
        $id_user = Auth::user()->id_user; 
 
        Locacoes:: create([
-        'id_filme'=> $filme->id,
+        'id_filme'=> $filme['id'],
         'data_retirada'=> $data_retirada->format('Y-m-d'),
-        'id_usuario'=> auth()->user()->id,
-
+        
+        'id_user'=> auth()->user()->id,
+        
        ]);
-    }
+      
+       
         return redirect()->route('home');
     }
 
+    public function devolver (Request $request, $id){
+
+        $data = $request->all();
+        $data_entrega = Carbon::now();
+        $status = 'disponivel';
+
+        Locacoes::where('id',$id)->update([
+            'data_entrega'=> $data_entrega,
+            'status'=> $status,
+        ]);
+            
+    }
 }
